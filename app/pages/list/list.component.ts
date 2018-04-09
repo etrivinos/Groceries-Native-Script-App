@@ -4,6 +4,9 @@ import { Grocery } from "../../shared/grocery/grocery";
 import { GroceryListService } from "../../shared/grocery/grocery-list.service";
 import { TextField } from "ui/text-field";
 
+import * as SocialShare from "nativescript-social-share";
+import { isEnabled, enableLocationRequest, getCurrentLocation, watchLocation, distance, clearWatch } from "nativescript-geolocation";
+
 @Component({
   selector: "list",
   moduleId: module.id,
@@ -66,5 +69,25 @@ export class ListComponent implements OnInit {
         }
       );
     */
+  }
+
+  share() {
+    let listString = this.groceryList
+      .map(grocery => grocery.name)
+      .join(", ")
+      .trim();
+    SocialShare.shareText(listString);
+  }
+
+  enableLocationTap() {
+    var location = getCurrentLocation({desiredAccuracy: 3, updateDistance: 10, maximumAge: 20000, timeout: 20000}).
+    then(function(loc) {
+        if (loc) {
+            console.log(loc.latitude);
+            console.log(loc.longitude);
+        }
+    }, function(e){
+        console.log("Error: " + e.message);
+    });
   }
 }
