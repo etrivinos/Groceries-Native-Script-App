@@ -7,7 +7,7 @@
 
   <GridLayout row="0" columns="*, auto" class="add-bar">
     <TextField #groceryTextField [(ngModel)]="grocery" hint="Enter a grocery item" (returnPress)="add()" col="0"></TextField>
-    <Image src="res://add" (tap)="enableLocationTap()" col="1"></Image>
+    <Image src="res://add" (tap)="add()" col="1"></Image>
   </GridLayout>
 
   <ActivityIndicator 
